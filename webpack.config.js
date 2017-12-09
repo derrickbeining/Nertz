@@ -1,15 +1,23 @@
+const webpack = require('webpack');
+const {resolve} = require('path');
+
 module.exports = {
-  entry: './client/index.js',
+  entry: [
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:8080',
+    'webpack/hot/only-dev-server',
+    './client/index.js'
+  ],
   output: {
-    path: __dirname,
-    filename: './public/bundle.js'
+    path: resolve(__dirname, 'public'),
+    filename: 'bundle.js'
   },
   devtool: 'source-map',
   module: {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /node_modules/,
         loader: 'babel-loader'
       },
       {
@@ -25,5 +33,15 @@ module.exports = {
         loader: 'file-loader'
       }
     ]
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+  ],
+
+  devServer: {
+    contentBase: './public',
+    hot: true
   }
 }
