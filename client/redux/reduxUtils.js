@@ -10,12 +10,12 @@ import store, {
   setStackRef,
   setGameInProgress,
   setGameNotInProgress,
-  setGameToPaused,
-  setGameToUnpaused,
+  // setGameToPaused,
+  // setGameToUnpaused,
   // userActionTaken,
   // requireUserAction,
   // setGameOver,
-  startNewGame,
+  // startNewGame,
   // setRoundOver,
   // startNewRound,
   // setScoreLimit,
@@ -108,9 +108,9 @@ export const setNertzHasBeenCalledInRedux = (isNertzCalled) => {
   return dispatch(setNertzHasBeenCalled(isNertzCalled));
 }
 
-export const startNewGameInRedux = () => {
-  return dispatch(startNewGame());
-}
+// export const startNewGameInRedux = () => {
+//   return dispatch(startNewGame());
+// }
 
 export const resetReduxStore = () => {
   const user = getCurrentUserInRedux()
