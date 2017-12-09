@@ -9,10 +9,10 @@
   "scripts": {
     "build-client": "webpack",
     "build-client-watch": "webpack -w",
-    "deploy": "git checkout -b deploy && webpack -p && git add -f public/bundle.js public/bundle.js.map && git commit --allow-empty -m 'Deploying' && git push --force heroku deploy:master && git checkout master && git branch -D deploy",
+    "deploy": "git checkout -b deploy && webpack -p --config ./webpack.prod.js && git add -f public/bundle.js public/bundle.js.map && git commit --allow-empty -m 'Deploying' && git push --force heroku deploy:master && git checkout master && git branch -D deploy",
     "start": "node server",
     "start-dev-prev": "npm run build-client-watch & npm run start-server",
-    "start-dev": "webpack-dev-server",
+    "start-dev": "NODE_ENV='development' webpack-dev-server",
     "start-server": "NODE_ENV='development' nodemon server -e html,js,scss --ignore public",
     "test": "NODE_ENV='test' mocha ./client/**/*.spec.js -w --compilers js:babel-register"
   },
@@ -77,6 +77,7 @@
     "style-loader": "^0.13.1",
     "supertest": "^3.0.0",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.9.7"
+    "webpack-dev-server": "^2.9.7",
+    "webpack-merge": "^4.1.1"
   }
 }

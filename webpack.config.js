@@ -1,18 +1,13 @@
-const webpack = require('webpack');
 const {resolve} = require('path');
+const merge = require('webpack-merge');
+const prodConfig = require('./webpack.prod');
+const devConfig = require('./webpack.dev');
 
-module.exports = {
-  entry: [
-    'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:8080',
-    'webpack/hot/only-dev-server',
-    './client/index.js'
-  ],
+const config = {
   output: {
     path: resolve(__dirname, 'public'),
     filename: 'bundle.js'
   },
-  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -33,15 +28,9 @@ module.exports = {
         loader: 'file-loader'
       }
     ]
-  },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
-  ],
-
-  devServer: {
-    contentBase: './public',
-    hot: true
   }
 }
+
+module.exports = process.env === 'production' ?
+  merge(config, prodConfig) :
+  merge(config, devConfig);
